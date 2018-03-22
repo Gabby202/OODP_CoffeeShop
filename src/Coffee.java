@@ -1,13 +1,14 @@
 
 public class Coffee {
 	
-	private String milk, name, espresso;
+	private String milk, name, espresso, imageurl;
 	
 	
-	public Coffee(String name, String espresso, String milk ){
+	public Coffee(String name, String espresso, String milk, String imageurl){
 		this.name = name;
 		this.milk = milk;
 		this.espresso = espresso;
+		this.imageurl = imageurl;
 	}
 
 	public String getMilk() {
@@ -38,6 +39,14 @@ public class Coffee {
 
 	public void setEspresso(String espresso) {
 		this.espresso = espresso;
+	}
+
+	public String getImageurl() {
+		return imageurl;
+	}
+
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
 	}
 
 
