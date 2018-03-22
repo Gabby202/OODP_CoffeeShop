@@ -11,7 +11,7 @@ public class CoffeeShop extends JFrame implements ActionListener{
 	JRadioButton milkRadioButton, blackRadioButton, skinnyLatteRadioButton, soyLatteRadioButton, decaffLatteRadioButton;
 	Tea tea;
 	JLabel outputLabel, ingredientsLabel;
-	JLabel teaImage;
+	JLabel teaImage, latteImage;
 	private CoffeeFactory coffeeFactory = new Latte();
 	
 	public CoffeeShop() {
@@ -35,6 +35,7 @@ public class CoffeeShop extends JFrame implements ActionListener{
  		outputLabel = new JLabel();
  		ingredientsLabel = new JLabel();
  		teaImage = new JLabel();
+ 		latteImage = new JLabel();
  		//panel modifiers
  		mainContentPanel.setLayout(new BorderLayout());
  		leftPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -52,6 +53,7 @@ public class CoffeeShop extends JFrame implements ActionListener{
  		outputPanel.add(outputLabel, BorderLayout.NORTH);
  		outputPanel.add(ingredientsLabel, BorderLayout.SOUTH);
  		outputPanel.add(teaImage, BorderLayout.CENTER);
+ 		
 
  		//button modifiers
  		formatButton(teaButton);
@@ -125,19 +127,22 @@ public class CoffeeShop extends JFrame implements ActionListener{
 		if(e.getSource() == skinnyLatteRadioButton){
 			outputLabel.setText(coffeeFactory.getSkinny().getName());
 			ingredientsLabel.setText("Ingredients: " + coffeeFactory.getSkinny().getEspresso() +", "+coffeeFactory.getSkinny().getMilk());
-			
+			Icon image = new ImageIcon(coffeeFactory.getSkinny().getImageurl());
+			teaImage.setIcon(image);
 		}
 		
 		if(e.getSource() == soyLatteRadioButton){
 			outputLabel.setText(coffeeFactory.getSoy().getName());
 			ingredientsLabel.setText("Ingredients: " + coffeeFactory.getSoy().getEspresso() +", "+coffeeFactory.getSoy().getMilk());
-			
+			Icon image = new ImageIcon(coffeeFactory.getSoy().getImageurl());
+			teaImage.setIcon(image);
 		}
 		
 		if(e.getSource() == decaffLatteRadioButton){
 			outputLabel.setText(coffeeFactory.getDecaff().getName());
 			ingredientsLabel.setText("Ingredients: " + coffeeFactory.getDecaff().getEspresso() +", "+coffeeFactory.getDecaff().getMilk());
-			
+			Icon image = new ImageIcon(coffeeFactory.getDecaff().getImageurl());
+			teaImage.setIcon(image);
 		}
 
 	}
