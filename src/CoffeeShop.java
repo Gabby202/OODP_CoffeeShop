@@ -8,10 +8,11 @@ public class CoffeeShop extends JFrame implements ActionListener{
 	
 	JButton teaButton, latteButton, cappButton, mochaButton, submitTea;
 	JPanel optionSelectPanel, cardTeaPanel, cardLattePanel; //global because it uses actionPerformed to know which options to show
-	JRadioButton milkRadioButton, blackRadioButton;
+	JRadioButton milkRadioButton, blackRadioButton, skinnyLatteRadioButton, soyLatteRadioButton, decaffLatteRadioButton;
 	Tea tea;
-	JLabel outputLabel;
+	JLabel outputLabel, ingredientsLabel;
 	JLabel teaImage;
+	private CoffeeFactory coffeeFactory = new Latte();
 	
 	public CoffeeShop() {
 		Container c = getContentPane();
@@ -32,6 +33,7 @@ public class CoffeeShop extends JFrame implements ActionListener{
  		
  		//label declarations
  		outputLabel = new JLabel();
+ 		ingredientsLabel = new JLabel();
  		teaImage = new JLabel();
  		//panel modifiers
  		mainContentPanel.setLayout(new BorderLayout());
@@ -48,6 +50,7 @@ public class CoffeeShop extends JFrame implements ActionListener{
  		optionSelectPanel.setLayout(new CardLayout());
  		c.setBackground(Color.DARK_GRAY);
  		outputPanel.add(outputLabel, BorderLayout.NORTH);
+ 		outputPanel.add(ingredientsLabel, BorderLayout.SOUTH);
  		outputPanel.add(teaImage, BorderLayout.CENTER);
 
  		//button modifiers
@@ -117,6 +120,26 @@ public class CoffeeShop extends JFrame implements ActionListener{
 		if(e.getSource() == submitTea) {
 			//outputLabel.setVisible(true);
 		}
+		
+		//latte options
+		if(e.getSource() == skinnyLatteRadioButton){
+			outputLabel.setText(coffeeFactory.getSkinny().getName());
+			ingredientsLabel.setText("Ingredients: " + coffeeFactory.getSkinny().getEspresso() +", "+coffeeFactory.getSkinny().getMilk());
+			
+		}
+		
+		if(e.getSource() == soyLatteRadioButton){
+			outputLabel.setText(coffeeFactory.getSoy().getName());
+			ingredientsLabel.setText("Ingredients: " + coffeeFactory.getSoy().getEspresso() +", "+coffeeFactory.getSoy().getMilk());
+			
+		}
+		
+		if(e.getSource() == decaffLatteRadioButton){
+			outputLabel.setText(coffeeFactory.getDecaff().getName());
+			ingredientsLabel.setText("Ingredients: " + coffeeFactory.getDecaff().getEspresso() +", "+coffeeFactory.getDecaff().getMilk());
+			
+		}
+
 	}
 	
 	public static void main(String[] args) {
@@ -174,12 +197,36 @@ public class CoffeeShop extends JFrame implements ActionListener{
 	}
 	
 	public JPanel latteOptions() {
+		
 		JPanel panel = new JPanel();
+		JPanel panelContent = new JPanel();
+		
+		
+		 skinnyLatteRadioButton = new JRadioButton("Skinny");
+		 soyLatteRadioButton = new JRadioButton("Soy");
+		 decaffLatteRadioButton = new JRadioButton("Decaf");
+		
+		
+		 skinnyLatteRadioButton.addActionListener(this);
+		 soyLatteRadioButton.addActionListener(this);
+		 decaffLatteRadioButton.addActionListener(this);
+		
+		//choosing one of these returns a certain object
+		//simple factory
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(skinnyLatteRadioButton);
+		bg.add(soyLatteRadioButton);
+		bg.add(decaffLatteRadioButton);
+		
 		panel.setLayout(new BorderLayout());
 		JLabel label = new JLabel("How would you like your Latte?");
 		label.setFont(new Font("Roboto", Font.PLAIN, 18));
 		label.setHorizontalAlignment(JLabel.CENTER);
 		panel.add(label, BorderLayout.NORTH);
+		panelContent.add(skinnyLatteRadioButton);
+		panelContent.add(soyLatteRadioButton);
+		panelContent.add(decaffLatteRadioButton);
+		panel.add(panelContent, BorderLayout.CENTER);
 		return panel;
 	}
 	
