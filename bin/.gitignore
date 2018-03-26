@@ -7,3 +7,6 @@
 /Coffee.class
 /LatteFactory.class
 /Latte.class
+/Cappuchino.class
+/AdapterCapuchino.class
+/AdapterCappuchino.class

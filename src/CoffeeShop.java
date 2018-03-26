@@ -6,13 +6,14 @@ import javax.naming.OperationNotSupportedException;
 import javax.swing.*;
 public class CoffeeShop extends JFrame implements ActionListener{
 	
-	JButton teaButton, latteButton, cappButton, mochaButton, submitTea;
-	JPanel optionSelectPanel, cardTeaPanel, cardLattePanel; //global because it uses actionPerformed to know which options to show
-	JRadioButton milkRadioButton, blackRadioButton, skinnyLatteRadioButton, soyLatteRadioButton, decaffLatteRadioButton;
+	JButton teaButton, latteButton, cappButton, mochaButton;
+	JPanel optionSelectPanel, cardTeaPanel, cardLattePanel, cardCappPanel; //global because it uses actionPerformed to know which options to show
+	JRadioButton milkRadioButton, blackRadioButton, skinnyLatteRadioButton, soyLatteRadioButton, decaffLatteRadioButton, skinnyCappRadioButton, soyCappRadioButton, decaffCappRadioButton;
 	Tea tea;
 	JLabel outputLabel, ingredientsLabel;
-	JLabel teaImage, latteImage;
-	private CoffeeFactory coffeeFactory = new Latte();
+	JLabel drinkImage;
+	private CoffeeFactory LatteCoffeeFactory = new Latte();
+	private CoffeeFactory CappCoffeeFactory = new Cappuchino();
 	
 	public CoffeeShop() {
 		Container c = getContentPane();
@@ -34,8 +35,8 @@ public class CoffeeShop extends JFrame implements ActionListener{
  		//label declarations
  		outputLabel = new JLabel();
  		ingredientsLabel = new JLabel();
- 		teaImage = new JLabel();
- 		latteImage = new JLabel();
+ 		drinkImage = new JLabel();
+ 		
  		//panel modifiers
  		mainContentPanel.setLayout(new BorderLayout());
  		leftPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -52,7 +53,7 @@ public class CoffeeShop extends JFrame implements ActionListener{
  		c.setBackground(Color.DARK_GRAY);
  		outputPanel.add(outputLabel, BorderLayout.NORTH);
  		outputPanel.add(ingredientsLabel, BorderLayout.SOUTH);
- 		outputPanel.add(teaImage, BorderLayout.CENTER);
+ 		outputPanel.add(drinkImage, BorderLayout.CENTER);
  		
 
  		//button modifiers
@@ -71,12 +72,15 @@ public class CoffeeShop extends JFrame implements ActionListener{
  		
  		cardTeaPanel = new JPanel();
  		cardLattePanel = new JPanel();
+ 		cardCappPanel = new JPanel();
  		
  		cardTeaPanel = teaOptions();
  		cardLattePanel = latteOptions();
+ 		cardCappPanel = cappOptions();
  		 		
  		optionSelectPanel.add(cardTeaPanel, "teaCard");
  		optionSelectPanel.add(cardLattePanel, "latteCard");
+ 		optionSelectPanel.add(cardCappPanel, "cappuchinoCard");
  		
  		
  		
@@ -105,45 +109,73 @@ public class CoffeeShop extends JFrame implements ActionListener{
 			cardLayout.show(optionSelectPanel, "latteCard");
 		}
 		
+		if(e.getSource() == cappButton) {
+			clearItems();
+			CardLayout cardLayout = (CardLayout) optionSelectPanel.getLayout();
+			cardLayout.show(optionSelectPanel, "cappuchinoCard");
+		}
+		
 		if(e.getSource() == milkRadioButton) {
 			SimpleTeaFactory fac = new SimpleTeaFactory();
 			outputLabel.setText(fac.getTea("milk").getName());
 			Icon image = new ImageIcon(fac.getTea("milk").getImage());
-			teaImage.setIcon(image);
+			drinkImage.setIcon(image);
+			ingredientsLabel.setText(""); 
 		}
 		
 		if(e.getSource() == blackRadioButton) {
 			SimpleTeaFactory fac = new SimpleTeaFactory();
 			outputLabel.setText(fac.getTea("black").getName());
 			Icon image = new ImageIcon(fac.getTea("black").getImage());
-			teaImage.setIcon(image);
+			drinkImage.setIcon(image);
+			ingredientsLabel.setText(""); 
 		}
 		
-		if(e.getSource() == submitTea) {
-			//outputLabel.setVisible(true);
-		}
 		
 		//latte options
 		if(e.getSource() == skinnyLatteRadioButton){
-			outputLabel.setText(coffeeFactory.getSkinny().getName());
-			ingredientsLabel.setText("Ingredients: " + coffeeFactory.getSkinny().getEspresso() +", "+coffeeFactory.getSkinny().getMilk());
-			Icon image = new ImageIcon(coffeeFactory.getSkinny().getImageurl());
-			teaImage.setIcon(image);
+			outputLabel.setText(LatteCoffeeFactory.getSkinny().getName());
+			ingredientsLabel.setText("Ingredients: " + LatteCoffeeFactory.getSkinny().getEspresso() +", "+LatteCoffeeFactory.getSkinny().getMilk());
+			Icon image = new ImageIcon(LatteCoffeeFactory.getSkinny().getImageurl());
+			drinkImage.setIcon(image);
 		}
 		
 		if(e.getSource() == soyLatteRadioButton){
-			outputLabel.setText(coffeeFactory.getSoy().getName());
-			ingredientsLabel.setText("Ingredients: " + coffeeFactory.getSoy().getEspresso() +", "+coffeeFactory.getSoy().getMilk());
-			Icon image = new ImageIcon(coffeeFactory.getSoy().getImageurl());
-			teaImage.setIcon(image);
+			outputLabel.setText(LatteCoffeeFactory.getSoy().getName());
+			ingredientsLabel.setText("Ingredients: " + LatteCoffeeFactory.getSoy().getEspresso() +", "+LatteCoffeeFactory.getSoy().getMilk());
+			Icon image = new ImageIcon(LatteCoffeeFactory.getSoy().getImageurl());
+			drinkImage.setIcon(image);
 		}
 		
 		if(e.getSource() == decaffLatteRadioButton){
-			outputLabel.setText(coffeeFactory.getDecaff().getName());
-			ingredientsLabel.setText("Ingredients: " + coffeeFactory.getDecaff().getEspresso() +", "+coffeeFactory.getDecaff().getMilk());
-			Icon image = new ImageIcon(coffeeFactory.getDecaff().getImageurl());
-			teaImage.setIcon(image);
+			outputLabel.setText(LatteCoffeeFactory.getDecaff().getName());
+			ingredientsLabel.setText("Ingredients: " + LatteCoffeeFactory.getDecaff().getEspresso() +", "+LatteCoffeeFactory.getDecaff().getMilk());
+			Icon image = new ImageIcon(LatteCoffeeFactory.getDecaff().getImageurl());
+			drinkImage.setIcon(image);
 		}
+		
+		//lcapp options
+				if(e.getSource() == skinnyCappRadioButton){
+					outputLabel.setText(CappCoffeeFactory.getSkinny().getName());
+					ingredientsLabel.setText("Ingredients: " + CappCoffeeFactory.getSkinny().getEspresso() +", "+CappCoffeeFactory.getSkinny().getMilk());
+					Icon image = new ImageIcon(CappCoffeeFactory.getSkinny().getImageurl());
+					drinkImage.setIcon(image);
+				}
+				
+				if(e.getSource() == soyCappRadioButton){
+					outputLabel.setText(CappCoffeeFactory.getSoy().getName());
+					ingredientsLabel.setText("Ingredients: " + CappCoffeeFactory.getSoy().getEspresso() +", "+CappCoffeeFactory.getSoy().getMilk());
+					Icon image = new ImageIcon(CappCoffeeFactory.getSoy().getImageurl());
+					drinkImage.setIcon(image);
+				}
+				
+				if(e.getSource() == decaffCappRadioButton){
+					outputLabel.setText(CappCoffeeFactory.getDecaff().getName());
+					ingredientsLabel.setText("Ingredients: " + CappCoffeeFactory.getDecaff().getEspresso() +", "+CappCoffeeFactory.getDecaff().getMilk());
+					Icon image = new ImageIcon(CappCoffeeFactory.getDecaff().getImageurl());
+					drinkImage.setIcon(image);
+				}
+
 
 	}
 	
@@ -177,8 +209,6 @@ public class CoffeeShop extends JFrame implements ActionListener{
 		milkRadioButton = new JRadioButton("Milk");
 		blackRadioButton = new JRadioButton("Black");
 		
-		submitTea = new JButton("Submit");
-		
 		milkRadioButton.addActionListener(this);
 		blackRadioButton.addActionListener(this);
 		
@@ -196,7 +226,7 @@ public class CoffeeShop extends JFrame implements ActionListener{
 		panelContent.add(milkRadioButton);
 		panelContent.add(blackRadioButton);
 		panel.add(panelContent, BorderLayout.CENTER);
-		panel.add(submitTea, BorderLayout.SOUTH);
+		
 		
 		return panel;
 	}
@@ -235,8 +265,42 @@ public class CoffeeShop extends JFrame implements ActionListener{
 		return panel;
 	}
 	
+public JPanel cappOptions() {
+		
+		JPanel panel = new JPanel();
+		JPanel panelContent = new JPanel();
+		
+		
+		 skinnyCappRadioButton = new JRadioButton("Skinny");
+		 soyCappRadioButton = new JRadioButton("Soy");
+		 decaffCappRadioButton = new JRadioButton("Decaf");
+		
+		
+		 skinnyCappRadioButton.addActionListener(this);
+		 soyCappRadioButton.addActionListener(this);
+		 decaffCappRadioButton.addActionListener(this);
+		
+		//choosing one of these returns a certain object
+		//simple factory
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(skinnyCappRadioButton);
+		bg.add(soyCappRadioButton);
+		bg.add(decaffCappRadioButton);
+		
+		panel.setLayout(new BorderLayout());
+		JLabel label = new JLabel("How would you like your Cappuchino?");
+		label.setFont(new Font("Roboto", Font.PLAIN, 18));
+		label.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(label, BorderLayout.NORTH);
+		panelContent.add(skinnyCappRadioButton);
+		panelContent.add(soyCappRadioButton);
+		panelContent.add(decaffCappRadioButton);
+		panel.add(panelContent, BorderLayout.CENTER);
+		return panel;
+	}
+	
 	public void clearItems() {
-		teaImage.setIcon(null);
+		drinkImage.setIcon(null);
 		outputLabel.setText("");
 	}
 }
