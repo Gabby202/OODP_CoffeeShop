@@ -19,6 +19,7 @@ public class skinnyCommand implements Command {
    public void Execute() {
 	    outputLabel.setText(coffeeFactory.getSkinny().getName());
 		ingredientsLabel.setText("Ingredients: " + coffeeFactory.getSkinny().getEspresso() +", "+coffeeFactory.getSkinny().getMilk());
+		ingredientsLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		Icon image = new ImageIcon(coffeeFactory.getSkinny().getImageurl());
 		drinkImage.setIcon(image);
 		

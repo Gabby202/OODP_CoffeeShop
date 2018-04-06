@@ -20,6 +20,7 @@ public class decaffCommand implements Command {
    public void Execute() {
 	    outputLabel.setText(coffeeFactory.getDecaff().getName());
 		ingredientsLabel.setText("Ingredients: " + coffeeFactory.getDecaff().getEspresso() +", "+coffeeFactory.getDecaff().getMilk());
+		ingredientsLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		Icon image = new ImageIcon(coffeeFactory.getDecaff().getImageurl());
 		drinkImage.setIcon(image);
 		

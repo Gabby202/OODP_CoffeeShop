@@ -19,6 +19,7 @@ public class soyCommand implements Command {
    public void Execute() {
 	    outputLabel.setText(coffeeFactory.getSoy().getName());
 		ingredientsLabel.setText("Ingredients: " + coffeeFactory.getSoy().getEspresso() +", "+coffeeFactory.getSoy().getMilk());
+		ingredientsLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		Icon image = new ImageIcon(coffeeFactory.getSoy().getImageurl());
 		drinkImage.setIcon(image);
 		

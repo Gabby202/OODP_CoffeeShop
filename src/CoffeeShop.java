@@ -42,6 +42,7 @@ public class CoffeeShop extends JFrame implements ActionListener{
  		
  		//label declarations
  		outputLabel = new JLabel();
+ 		outputLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
  		ingredientsLabel = new JLabel();
  		drinkImage = new JLabel();
  		
@@ -125,11 +126,16 @@ public class CoffeeShop extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-				
+				clear();
 				CommandHolder obj = (CommandHolder)e.getSource();
 			      obj.getCommand().Execute();
 
 
+	}
+	
+	public void clear() {
+		outputLabel.setText("");
+		ingredientsLabel.setText("");
 	}
 	
 	public static void main(String[] args) {
@@ -178,7 +184,7 @@ public class CoffeeShop extends JFrame implements ActionListener{
 		
 		panel.setLayout(new BorderLayout());
 		JLabel label = new JLabel("How would you like your Tea?");
-		label.setFont(new Font("Roboto", Font.PLAIN, 18));
+		label.setFont(new Font("Roboto", Font.PLAIN, 28));
 		label.setHorizontalAlignment(JLabel.CENTER);
 		panel.add(label, BorderLayout.NORTH);
 		panelContent.add(milkTeaButton);
@@ -214,7 +220,7 @@ public class CoffeeShop extends JFrame implements ActionListener{
 		
 		panel.setLayout(new BorderLayout());
 		JLabel label = new JLabel("How would you like your Latte?");
-		label.setFont(new Font("Roboto", Font.PLAIN, 18));
+		label.setFont(new Font("Roboto", Font.PLAIN, 28));
 		label.setHorizontalAlignment(JLabel.CENTER);
 		panel.add(label, BorderLayout.NORTH);
 		panelContent.add(skinnyButton);
@@ -250,7 +256,7 @@ public JPanel cappOptions() {
 	
 	panel.setLayout(new BorderLayout());
 	JLabel label = new JLabel("How would you like your Cappuchino?");
-	label.setFont(new Font("Roboto", Font.PLAIN, 18));
+	label.setFont(new Font("Roboto", Font.PLAIN, 28));
 	label.setHorizontalAlignment(JLabel.CENTER);
 	panel.add(label, BorderLayout.NORTH);
 	panelContent.add(skinnyButton);
@@ -286,7 +292,7 @@ public JPanel mochaOptions() {
 	
 	panel.setLayout(new BorderLayout());
 	JLabel label = new JLabel("How would you like your Mocha?");
-	label.setFont(new Font("Roboto", Font.PLAIN, 18));
+	label.setFont(new Font("Roboto", Font.PLAIN, 28));
 	label.setHorizontalAlignment(JLabel.CENTER);
 	panel.add(label, BorderLayout.NORTH);
 	panelContent.add(skinnyButton);
